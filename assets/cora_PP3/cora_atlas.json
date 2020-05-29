@@ -1,0 +1,47 @@
+{
+    "frames": [
+        {
+            "filename": "corazon_0",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 100,
+                "h": 100
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "corazon_1",
+            "frame": {
+                "x": 100,
+                "y": 0,
+                "w": 100,
+                "h": 100
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "corazon_2",
+            "frame": {
+                "x": 200,
+                "y": 0,
+                "w": 100,
+                "h": 100
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "anims": [
+        {
+            "key": "mov",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "nio",
+                    "frame": "nio_0"
+                },
+                {
+                    "key": "nio",
+                    "frame": "nio_1"
+                },
+                {
+                    "key": "nio",
+                    "frame": "nio_2"
+                },
+                {
+                    "key": "nio",
+                    "frame": "nio_3"
+                },
+                {
+                    "key": "nio",
+                    "frame": "nio_4"
+                },
+                {
+                    "key": "nio",
+                    "frame": "nio_5"
+                }
+            ]
+        }
+    ]
+}
