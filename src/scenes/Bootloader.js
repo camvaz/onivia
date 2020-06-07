@@ -11,32 +11,34 @@ class Bootloader extends Phaser.Scene{
     }
     preload() {
         this.load.path = './assets/';
-
-        this.load.image('separadorA','separadorA.png')
-        this.load.image('separadorB','separadorB.png');
-        this.load.image('separadorC','separadorC.png');
+        //MenuPrincipal
         this.load.image('comenzar','comenzar.jpeg');
         this.load.image('menu','oniria.jpeg');
         this.load.image('fondolvls','lvls.jpg');
-
-        this.load.image('lvl1','lvl1.png');
-        this.load.image('lvl2','lvl2.png');
-        this.load.image('regreso','menu.png');
         this.load.audio("boton","boton_comenzar.mp3");
         this.load.audio("musica1","musica1.ogg");
         this.load.audio("musica2","musica2.ogg");
-        this.load.audio("boton","boton_comenzar.mp3");
+
+        //MenuLvls
+        this.load.image('lvl1','lvl1.png');
+        this.load.image('lvl2','lvl2.png');
+        this.load.image('regreso','menu.png');
         this.load.audio("burbuja","burbuja.mp3");
         this.load.audio("rayo","rayo.mp3");
         this.load.audio("menulvls","menulvls.ogg");
+
+        //lvl1
+        this.load.image(['muro','esquinaIzq','esquinaDer','flotante','hielo','picos','sue']);
+        this.load.image('piso','piso.jpg');
+
         //lvl2
-        this.load.image(['Plataformas', 'suelo', 'pared',]) 
+        this.load.image(['Plataformas', 'suelo', 'pared',]);
         this.load.image("cielo","cielo.jpg");
         this.load.image("cielo3","cielo3.png");
-        this.load.atlas('nio','nio_PP3/nio.png','nio_PP3/nio_atlas.json')
-        this.load.atlas('cora','cora_PP3/cora.png','cora_PP3/cora_atlas.json')
+        this.load.atlas('nio','nio_PP3/nio.png','nio_PP3/nio_atlas.json');
+        this.load.atlas('cora','cora_PP3/cora.png','cora_PP3/cora_atlas.json');
         this.load.animation('nioAnim', 'nio_PP3/nio_anim.json');
-        this.load.image(['contenedor','head'])
+        this.load.image(['contenedor','head']);
         this.load.image("coraz","coraz.png");
     }
     create() {
@@ -74,39 +76,7 @@ class Bootloader extends Phaser.Scene{
                 this.scene.start('SceneA');
             }
         });
-
-        
-        // this.scene.start('SceneA');
-        // this.scene.launch('SceneB');
-        // this.scene.launch('SceneC');
-        // this.scene.moveDown('SceneC');
-        // console.log(this.scene.manager.scenes.map( x => x.scene.key ));
-        // this.scene.moveUp('SceneA');
-        // console.log(this.scene.manager.scenes.map( x => x.scene.key ));
-        // ¿En qué posición queda SceneC? En la primera en donde estaba A al inicio 
-
-        // this.scene.swapPosition('SceneA', 'SceneC');
-        //this.scene.bringToTop('SceneA');
-        // this.scene.sendToBack('SceneC');
-        // this.scene.moveAbove('SceneA', 'SceneC');
-        // ¿Cuál es el orden resultante? Bootloader,EscenaA,EscenaC,EscenaB
-        // this.scene.moveBelow('SceneA', 'SceneC');
-        // ¿Cuál es el orden resultante? Bootloader,EscenaC,EscenaA,EscenaB
-        // console.log(this.scene.manager.scenes.map( x => x.scene.key ));
-        // setTimeout(() => {
-        //     this.scene.pause('SceneA');
-        //     }, 2000);
-
-        // setTimeout(() => {
-        //     this.scene.resume('SceneA');
-        //     }, 4000);
-
-        // setTimeout(() => {
-        //     this.scene.sleep('SceneA');
-        //     }, 2000);
-        // setTimeout(() => {
-        //     this.scene.wake('SceneA');
-        //     }, 4000);
+    
     }
     update(time, delta) {
         // ESTA FUNCION CREA UN CICLO INFINITO

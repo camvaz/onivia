@@ -40,7 +40,7 @@ class SceneA extends Phaser.Scene{
         this.input.on(eventos2.GAMEOBJECT_OUT, (pointer, gameObject) => {
             gameObject.setScale(0.02);
             });
-
+            this.scene.stop('SceneB');
         this.input.on(eventos2.GAMEOBJECT_DOWN, (pointer, GameObject) =>{
             if(GameObject.name != "")
             if(GameObject.name == "nivel1"){
@@ -58,8 +58,8 @@ class SceneA extends Phaser.Scene{
                 this.nivel2.setVisible(0);
                 this.regreso.setVisible(0);
                 this.musicaLvls.stop();
-                this.scene.start('SceneC');
-                this.scene.launch('SceneD');
+                this.scene.start('SceneE');
+                this.scene.launch('SceneF');
                 setTimeout(() => {
                     this.scene.sleep('SceneD');
                     }, 12000);
