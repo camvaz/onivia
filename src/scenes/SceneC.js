@@ -11,7 +11,7 @@ class SceneC extends Phaser.Scene{
     }
     preload() {
     }
-    create(dato) {
+    create(dato,dato2) {
          ////////////////////////////////////FONDO/////////////////////////////////////////////////////////
         this.add.image(0, 0, 'cielo3').setScale(0.55, 0.7);
  
@@ -49,7 +49,14 @@ class SceneC extends Phaser.Scene{
         this.grupo5_lvl1_2.create(200,250, 'hielo').setScale(0.01);
         this.grupo5_lvl1_2.create(200,350, 'hielo').setScale(0.01);
         this.grupo5_lvl1_2.create(200,450, 'hielo').setScale(0.01);
-          
+
+        this.sigLvl=this.add.image(660,420,'lvl1_2').setScale(0.7);
+        this.physics.add.existing(this.sigLvl, false);
+        this.sigLvl.body.setCollideWorldBounds(true);
+        this.sigLvl.body.immovable=true;
+        this.sigLvl.body.moves=false;
+        //this.sigLvl.body.setSize(30,30);
+        
           
 
         //   this.grupo_lvl1_2.create(580, 280, 'hielo').setScale(0.02);
@@ -147,16 +154,6 @@ class SceneC extends Phaser.Scene{
             this.salta=0;
           }
          this.physics.add.collider(this.Nio_lvl1_2,this.grupo5_lvl1_2,salte,null,this);
-        //   function salta2(Nio_lvl1, esquina2){
-        //     this.salta=0;
-        //   }
-        //  this.physics.add.collider(this.Nio_lvl1_2,this.esquina2,salta2,null,this);
-
-        //  function salta3(Nio_lvl1, grupo4_lvl1_2){
-        //     this.salta=0;
-
-        //   }
-        //  this.physics.add.collider(this.Nio_lvl1_2,this.grupo4_lvl1_2,salta3,null,this);
           //Movimiento izquierda
           this.cursor_lvl1_2.left.on('down', () => {   
               this.Nio_lvl1_2.body.setVelocityX(-800);
@@ -170,11 +167,45 @@ class SceneC extends Phaser.Scene{
   
           this.Nio_lvl1_2.anims.play('mov');
 
+          //Disparo Nio
+         this.cursor_lvl1_2.space.on('down', () => {
+            if (this.Nio_lvl1_2.flipX == 0)
+            {
+                this.bala_lvl1_2 = this.physics.add.sprite(this.Nio_lvl1_2.x,this.Nio_lvl1_2.y,'disparo').setScale(0.5);
+                this.bala_lvl1_2.body.setVelocityX(800);
+                this.bala_lvl1_2.body.setAllowGravity(false); 
+                dato2 += 1; 
+                console.log(dato2);
+                console.log("disparando")
+                //limiteBalas++;
+                //console.log(limiteBalas);
+                //this.physics.add.collider(this.bala_lvl1, this., BalaMorfeo, null, this);
+            }
+            else if(this.Nio_lvl1_2.flipX != 0) {
+                this.cursor_lvl1_2.space.on('down', () => {
+                    this.bala_lvl1_2 = this.physics.add.sprite(this.Nio_lvl1_2.x,this.Nio_lvl1_2.y,'disparo').setScale(0.5);
+                    this.bala_lvl1_2.body.setVelocityX(-800);
+                    this.bala_lvl1_2.body.setAllowGravity(false); 
+                    dato2 += 1; 
+                    console.log(dato2);
+                    console.log("disparando al reves")
+            });
+             
+            };
+        });
+
           //Colisiones jugador con escenario
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo_lvl1_2);
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo2_lvl1_2);
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo4_lvl1_2);
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo5_lvl1_2);
+           //Siguiente nivel 
+         function cambioScene2(Nio_lvl1, esquina){
+            console.log("Siguiente parte");
+            this.scene.start('SceneD',dato,dato2);
+            this.scene.stop('SceneC');
+          }
+          this.physics.add.collider(this.Nio_lvl1_2,this.sigLvl,cambioScene2,null,this);
  
  
         //Siguiente nivel 

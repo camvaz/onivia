@@ -28,18 +28,21 @@ class Bootloader extends Phaser.Scene{
         this.load.audio("menulvls","menulvls.ogg");
 
         //lvl1
-        this.load.image(['muro','esquinaIzq','esquinaDer','flotante','hielo','picos','sue']);
+        this.load.image(['muro','esquinaIzq','esquinaDer','flotante','hielo','picos','sue','lvl1_2','balaLvl1']);
         this.load.image('piso','piso.jpg');
+        this.load.image('tubo','tuboBalas.png');
 
         //lvl2
         this.load.image(['Plataformas', 'suelo', 'pared',]);
         this.load.image("cielo","cielo.jpg");
         this.load.image("cielo3","cielo3.png");
         this.load.atlas('nio','nio_PP3/nio.png','nio_PP3/nio_atlas.json');
+        this.load.image('Morfeo','Morfeo.png');
         this.load.atlas('cora','cora_PP3/cora.png','cora_PP3/cora_atlas.json');
         this.load.animation('nioAnim', 'nio_PP3/nio_anim.json');
         this.load.image(['contenedor','head']);
         this.load.image("coraz","coraz.png");
+        this.load.image('disparo','disparo.png');
     }
     create() {
         console.log(this.scene.manager.scenes);
