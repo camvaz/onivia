@@ -32,6 +32,7 @@ class SceneB extends Phaser.Scene{
          this.esquina.body.moves=false;
          this.esquina.body.setSize(2000,70);
 
+         this.grupo2_lvl1.create(220, 550, 'picos').setScale(0.5);
          this.grupo2_lvl1.create(310, 520, 'picos').setScale(0.5);
          this.grupo2_lvl1.create(380, 520, 'picos').setScale(0.5);
          this.grupo2_lvl1.create(450, 520, 'picos').setScale(0.5);
@@ -206,14 +207,13 @@ class SceneB extends Phaser.Scene{
 
         const camera2 =
         //posición x, posición y, ancho, alto
-        this.cameras.add(0, 0, 260, 80).setZoom(1.3);
-        setTimeout( () => {
-        // coordenada x, coordeada y, duración, interpolación
-        camera2.pan(this.container_lvl1.x, this.container_lvl1.y, 3000, 'Sine.easeInOut');
-        }, 2000);
-         }
+        this.cameras.add(0, 0, 260, 80).setZoom(1.3)
+         setTimeout( () => {
+         // coordenada x, coordeada y, duración, interpolación
+         camera2.pan(this.container_lvl1.x, this.container_lvl1.y, 3000, 'Sine.easeInOut');
+         }, 2000);
         
-
+        }
     update(time, delta) {
         //Doble salto
         if(this.salto<2){

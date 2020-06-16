@@ -49,7 +49,8 @@ class SceneE extends Phaser.Scene{
          this.Nio.body.setOffset(17, 0);
 
          /////MORFEO
-         this.Morfeo = this.add.sprite(350,100,'Morfeo').setScale(1.3);
+        // this.Morfeo = this.add.sprite(350,100,'Morfeo').setScale(1.3);
+        this.Morfeo = this.add.sprite(350,100,'morfeo').setScale(1.3);
          this.physics.add.existing(this.Morfeo);
          this.physics.add.existing(this.Morfeo, false);
          console.log(this.Morfeo.body);
@@ -58,6 +59,18 @@ class SceneE extends Phaser.Scene{
          this.Morfeo.body.immovable=true;
          this.Morfeo.body.moves=false;
          this.Morfeo.body.setOffset(17, 0);
+
+         this.anims.create({
+            key: 'mov1',
+            frames: this.anims.generateFrameNames('morfeo', {
+            prefix: 'morfeo_',
+            frames: [0,0,1,1]
+            }),
+            repeat: -1,
+            frameRate: 12
+            });
+        
+        this.Morfeo.anims.play('mov1');
         
 
 ///////////////////////////////////OBJETOS//////////////////////////////////
@@ -144,6 +157,7 @@ class SceneE extends Phaser.Scene{
  
  
          this.Nio.anims.play('mov');
+         //this.Morfeo.anims.play('mov');
 //////////////////////////////////////////DISPARO///////////////////////////////////////////
 
     this.cursor.space.on('down', () => {

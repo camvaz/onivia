@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "anim",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "morfeo",
+                    "frame": "morfeo_0"
+                },
+                {
+                    "key": "morfeo",
+                    "frame": "morfeo_0"
+                },
+                {
+                    "key": "morfeo",
+                    "frame": "morfeo_1"
+                },
+                {
+                    "key": "morfeo",
+                    "frame": "morfeo_1"
+                }
+            ]
+        }
+    ]
+}

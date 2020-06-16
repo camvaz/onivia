@@ -59,7 +59,7 @@ class SceneA extends Phaser.Scene{
                 this.regreso.setVisible(0);
                 this.musicaLvls.stop();
                 this.scene.start('SceneE');
-                this.scene.launch('SceneF');
+               // this.scene.launch('SceneF');
                 setTimeout(() => {
                     this.scene.sleep('SceneD');
                     }, 12000);

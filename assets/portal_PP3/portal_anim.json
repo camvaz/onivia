@@ -1,0 +1,56 @@
+{
+    "anims": [
+        {
+            "key": "portal",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_0"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_1"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_2"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_3"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_4"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_5"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_6"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_7"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_8"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_9"
+                },
+                {
+                    "key": "portal",
+                    "frame": "lvl1_2_10"
+                }
+            ]
+        }
+    ]
+}

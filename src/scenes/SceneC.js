@@ -50,12 +50,27 @@ class SceneC extends Phaser.Scene{
         this.grupo5_lvl1_2.create(200,350, 'hielo').setScale(0.01);
         this.grupo5_lvl1_2.create(200,450, 'hielo').setScale(0.01);
 
-        this.sigLvl=this.add.image(660,420,'lvl1_2').setScale(0.7);
+        //this.sigLvl=this.add.image(660,420,'lvl1_2').setScale(0.7);
+        this.sigLvl=this.add.sprite(660,420,'portal').setScale(0.7)//setScrollFactor(1);
         this.physics.add.existing(this.sigLvl, false);
         this.sigLvl.body.setCollideWorldBounds(true);
         this.sigLvl.body.immovable=true;
         this.sigLvl.body.moves=false;
+        
         //this.sigLvl.body.setSize(30,30);
+
+        this.anims.create({
+            key: 'portal1',
+            frames: this.anims.generateFrameNames('portal', {
+            prefix: 'lvl1_2_',
+            start: 0,
+            end: 10
+            }),
+            repeat: -1,
+            frameRate: 12
+            });
+        
+        this.sigLvl.anims.play('portal1');
         
           
 
