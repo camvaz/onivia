@@ -4,6 +4,8 @@ class SceneC extends Phaser.Scene{
             key: 'SceneC'
         });
     this.salta=0;
+    this.dato_lvl1_2;
+    this.dato2_lvl1_2;
     }
 
     init() {
@@ -12,6 +14,14 @@ class SceneC extends Phaser.Scene{
     preload() {
     }
     create(dato,dato2) {
+        //Musica
+        this.disparo2 = this.sound.add("disparo",{volume: 4});
+        this.caida = this.sound.add("caida",{volume: 4});
+        this.enemigo1 = this.sound.add("enemigo",{volume: 4});
+        this.choque = this.sound.add("picos",{volume: 4});
+        this.portalS = this.sound.add("portal",{volume: 4});
+        this.dato_lvl1_2 = dato;
+        this.dato2_lvl1_2 = dato2;
          ////////////////////////////////////FONDO/////////////////////////////////////////////////////////
         this.add.image(0, 0, 'cielo3').setScale(0.55, 0.7);
  
@@ -25,8 +35,6 @@ class SceneC extends Phaser.Scene{
         this.grupo_lvl1_2.create(15, 340, 'muro').setScale(0.02);
         this.grupo_lvl1_2.create(15, 280, 'muro').setScale(0.02);
         this.grupo_lvl1_2.create(15, 220, 'muro').setScale(0.02);
-    //   this.grupo_lvl1_2.create(15, 280, 'muro').setScale(0.02);
-    //   this.grupo_lvl1_2.create(15, 220, 'muro').setScale(0.02);
 
         this.grupo3_lvl1_2.create(15, 520, 'muro').setScale(0.02);
         this.grupo3_lvl1_2.create(15, 460, 'muro').setScale(0.02);
@@ -56,6 +64,7 @@ class SceneC extends Phaser.Scene{
         this.sigLvl.body.setCollideWorldBounds(true);
         this.sigLvl.body.immovable=true;
         this.sigLvl.body.moves=false;
+        this.sigLvl.setVisible(0);
         
         //this.sigLvl.body.setSize(30,30);
 
@@ -71,19 +80,6 @@ class SceneC extends Phaser.Scene{
             });
         
         this.sigLvl.anims.play('portal1');
-        
-          
-
-        //   this.grupo_lvl1_2.create(580, 280, 'hielo').setScale(0.02);
-        //  //  this.grupo_lvl1.create(660, 200, 'esquinaIzq').setScale(0.05);
-
- 
-        //   this.grupo2_lvl1_2.create(310, 520, 'picos').setScale(0.5);
-        //   this.grupo2_lvl1_2.create(380, 520, 'picos').setScale(0.5);
-        //   this.grupo2_lvl1_2.create(450, 520, 'picos').setScale(0.5);
-        //   this.grupo2_lvl1_2.create(520, 520, 'picos').setScale(0.5);
-        //   this.grupo2_lvl1_2.create(590, 520, 'picos').setScale(0.5);
-        //   this.grupo2_lvl1_2.create(660, 520, 'picos').setScale(0.5);
           
   
           this.grupo_lvl1_2.children.iterate( (muros_lvl1_2) => {
@@ -114,7 +110,42 @@ class SceneC extends Phaser.Scene{
             muros5_lvl1_2.body.moves=false;
         } );
          ////////////////////////////////////PERSONAJE////////////////////////////////////////////////////
-          
+         this.night = this.add.sprite(400,150,'night').setScale(1.3);
+         this.physics.add.existing(this.night, false);
+         this.night.body.setCollideWorldBounds(true);
+         this.night.body.setAllowGravity(false);
+         this.night.body.immovable=true;
+         this.night.body.moves=false;
+         this.night.body.setOffset(17, 0);
+         this.anims.create({
+            key: 'fly1',
+            frames: this.anims.generateFrameNames('night', {
+            prefix: 'night_',
+            frames: [0,1,0]
+            }),
+            repeat: -1,
+            frameRate: 12
+            });
+         this.night.anims.play('fly1');
+
+         this.night2 = this.add.sprite(570,470,'night').setScale(1.3);
+         this.physics.add.existing(this.night2, false);
+         this.night2.body.setCollideWorldBounds(true);
+         this.night2.body.setAllowGravity(false);
+         this.night2.body.immovable=true;
+         this.night2.body.moves=false;
+         this.night2.body.setOffset(17, 0);
+         this.night2.anims.play('fly1');
+
+         this.night3 = this.add.sprite(100,470,'night').setScale(1.3);
+         this.physics.add.existing(this.night3, false);
+         this.night3.body.setCollideWorldBounds(true);
+         this.night3.body.setAllowGravity(false);
+         this.night3.body.immovable=true;
+         this.night3.body.moves=false;
+         this.night3.body.setOffset(17, 0);
+         this.night3.anims.play('fly1');
+
           this.Nio_lvl1_2 = this.add.sprite(20,100,'nio').setScale(1.3).setScrollFactor(1);
           this.physics.add.existing(this.Nio_lvl1_2);
           this.physics.add.existing(this.Nio_lvl1_2, false);
@@ -187,27 +218,35 @@ class SceneC extends Phaser.Scene{
             if (this.Nio_lvl1_2.flipX == 0)
             {
                 this.bala_lvl1_2 = this.physics.add.sprite(this.Nio_lvl1_2.x,this.Nio_lvl1_2.y,'disparo').setScale(0.5);
+                // this.physics.add.existing(this.bala_lvl1_2, false);
                 this.bala_lvl1_2.body.setVelocityX(800);
                 this.bala_lvl1_2.body.setAllowGravity(false); 
                 dato2 += 1; 
-                console.log(dato2);
                 console.log("disparando")
                 //limiteBalas++;
                 //console.log(limiteBalas);
-                //this.physics.add.collider(this.bala_lvl1, this., BalaMorfeo, null, this);
+                this.disparo2.play();
+                this.physics.add.collider(this.bala_lvl1_2,this.night, balaEnemigo, null, this);
+                this.physics.add.collider(this.bala_lvl1_2,this.night2, balaEnemigo2, null, this);
+                this.physics.add.collider(this.bala_lvl1_2,this.night3, balaEnemigo3, null, this);
             }
             else if(this.Nio_lvl1_2.flipX != 0) {
                 this.cursor_lvl1_2.space.on('down', () => {
                     this.bala_lvl1_2 = this.physics.add.sprite(this.Nio_lvl1_2.x,this.Nio_lvl1_2.y,'disparo').setScale(0.5);
+                    // this.physics.add.existing(this.bala_lvl1_2, false);
                     this.bala_lvl1_2.body.setVelocityX(-800);
                     this.bala_lvl1_2.body.setAllowGravity(false); 
                     dato2 += 1; 
-                    console.log(dato2);
                     console.log("disparando al reves")
+                    this.disparo2.play();
+                    this.physics.add.collider(this.bala_lvl1_2,this.night, balaEnemigo, null, this);
+                    this.physics.add.collider(this.bala_lvl1_2,this.night2, balaEnemigo2, null, this);
+                    this.physics.add.collider(this.bala_lvl1_2,this.night3, balaEnemigo3, null, this);
             });
              
             };
         });
+    
 
           //Colisiones jugador con escenario
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo_lvl1_2);
@@ -216,19 +255,138 @@ class SceneC extends Phaser.Scene{
           this.physics.add.collider(this.Nio_lvl1_2,this.grupo5_lvl1_2);
            //Siguiente nivel 
          function cambioScene2(Nio_lvl1, esquina){
+             this.portalS.play();
             console.log("Siguiente parte");
-            this.scene.start('SceneD',dato,dato2);
+            this.scene.start('SceneD',this.dato_lvl1_2,this.dato2_lvl1_2);
             this.scene.stop('SceneC');
           }
           this.physics.add.collider(this.Nio_lvl1_2,this.sigLvl,cambioScene2,null,this);
- 
- 
-        //Siguiente nivel 
+
+          //Colisiones con enemigos
+          function choqueEnemigo(Nio_lvl1_2, night2){
+            this.dato_lvl1_2-=1;
+            const container_lvl1_2 = this.add.container(100, 30).setScale(0.08); //su origen es 0.5
+            this.contenedor_lvl1_2 = this.add.image(0, 0, 'contenedor'); //su origen es 0.5
+            this.texto_lvl1_2 = this.add.text(250,-100,`x ${this.dato_lvl1_2}`,{
+            fontSize: 250}); // su origen es 0,0
+            this.head_lvl1_2 = this.add.image(-500, 50, 'head').setScale(15); //su origen es 0.5
+            this.cora_lvl1_2 = this.add.image(0, 0, 'coraz').setScale(5);
+            container_lvl1_2.add([
+                this.contenedor_lvl1_2,
+                this.head_lvl1_2,
+                this.cora_lvl1_2,
+                this.texto_lvl1_2]);
+
+            this.Nio_lvl1_2.setTint(0xff0000)
+            setTimeout(() => {
+                this.Nio_lvl1_2.clearTint();
+                }, 600);
+            this.choque.play();
+          }
+          this.physics.add.collider(this.Nio_lvl1_2,this.night2,choqueEnemigo,null,this);
+
+          function choqueEnemigo2(Nio_lvl1_2, night3){
+            this.dato_lvl1_2-=1;
+            const container_lvl1_2 = this.add.container(100, 30).setScale(0.08); //su origen es 0.5
+            this.contenedor_lvl1_2 = this.add.image(0, 0, 'contenedor'); //su origen es 0.5
+            this.texto_lvl1_2 = this.add.text(250,-100,`x ${this.dato_lvl1_2}`,{
+            fontSize: 250}); // su origen es 0,0
+            this.head_lvl1_2 = this.add.image(-500, 50, 'head').setScale(15); //su origen es 0.5
+            this.cora_lvl1_2 = this.add.image(0, 0, 'coraz').setScale(5);
+            container_lvl1_2.add([
+                this.contenedor_lvl1_2,
+                this.head_lvl1_2,
+                this.cora_lvl1_2,
+                this.texto_lvl1_2]);
+
+            this.Nio_lvl1_2.setTint(0xff0000)
+            setTimeout(() => {
+                this.Nio_lvl1_2.clearTint();
+                }, 600);
+            this.choque.play();
+          }
+          this.physics.add.collider(this.Nio_lvl1_2,this.night3,choqueEnemigo2,null,this);
+
+          function choqueEnemigo3(Nio_lvl1_2, night){
+            this.dato_lvl1_2-=1;
+            const container_lvl1_2 = this.add.container(100, 30).setScale(0.08); //su origen es 0.5
+            this.contenedor_lvl1_2 = this.add.image(0, 0, 'contenedor'); //su origen es 0.5
+            this.texto_lvl1_2 = this.add.text(250,-100,`x ${this.dato_lvl1_2}`,{
+            fontSize: 250}); // su origen es 0,0
+            this.head_lvl1_2 = this.add.image(-500, 50, 'head').setScale(15); //su origen es 0.5
+            this.cora_lvl1_2 = this.add.image(0, 0, 'coraz').setScale(5);
+            container_lvl1_2.add([
+                this.contenedor_lvl1_2,
+                this.head_lvl1_2,
+                this.cora_lvl1_2,
+                this.texto_lvl1_2]);
+
+            this.Nio_lvl1_2.setTint(0xff0000)
+            setTimeout(() => {
+                this.Nio_lvl1_2.clearTint();
+                }, 600);
+            this.choque.play();
+          }
+          this.physics.add.collider(this.Nio_lvl1_2,this.night,choqueEnemigo3,null,this);
+
+          this.vidas_N= 10;
+          this.vidas_N2= 10;
+          this.vidas_N3= 10;
+          this.portal1=0;
+
+          function balaEnemigo(bala_lvl1_2, night){
+            this.vidas_N-=1;
+            this.night.setTint(0xff0000)
+            setTimeout(() => {
+                this.night.clearTint();
+                }, 600);
+            if(this.vidas_N==0){
+                this.night.destroy();
+                this.bala_lvl1_2.destroy();
+                this.portal1+=1;
+                if(this.portal1 > 2){
+                    this.sigLvl.setVisible(1);
+                  }
+            }
+            this.enemigo1.play();
+          }
+          function balaEnemigo2(bala_lvl1_2, night2){
+            this.vidas_N2-=1;
+            this.night2.setTint(0xff0000)
+            setTimeout(() => {
+                this.night2.clearTint();
+                }, 600);
+            if(this.vidas_N2==0){
+                this.night2.destroy();
+                this.bala_lvl1_2.destroy();
+                this.portal1+=1;
+                if(this.portal1 > 2){
+                    this.sigLvl.setVisible(1);
+                  }
+            }
+            this.enemigo1.play();
+          }
+          function balaEnemigo3(bala_lvl1_2, night3){
+            this.vidas_N3-=1;
+            this.night3.setTint(0xff0000)
+            setTimeout(() => {
+                this.night3.clearTint();
+                }, 600);
+            if(this.vidas_N3==0){
+                this.night3.destroy();
+                this.bala_lvl1_2.destroy();
+                this.portal1+=1;
+                if(this.portal1 > 2){
+                    this.sigLvl.setVisible(1);
+                  }
+            }
+            this.enemigo1.play();
+          }
         
         //Cartel de vidas
         const container_lvl1_2 = this.add.container(100, 30).setScale(0.08); //su origen es 0.5
         this.contenedor_lvl1_2 = this.add.image(0, 0, 'contenedor'); //su origen es 0.5
-        this.texto_lvl1_2 = this.add.text(250,-100,`x ${dato}`,{
+        this.texto_lvl1_2 = this.add.text(250,-100,`x ${this.dato_lvl1_2}`,{
             fontSize: 250}); // su origen es 0,0
         this.head_lvl1_2 = this.add.image(-500, 50, 'head').setScale(15); //su origen es 0.5
         this.cora_lvl1_2 = this.add.image(0, 0, 'coraz').setScale(5);
@@ -237,6 +395,7 @@ class SceneC extends Phaser.Scene{
             this.head_lvl1_2,
             this.cora_lvl1_2,
             this.texto_lvl1_2]);
+        
  
          //Camara
          this.cameras.main.setBounds(0, 0, 704, 540);
@@ -245,6 +404,7 @@ class SceneC extends Phaser.Scene{
  
          const camera2_2 =
          this.cameras.add(0, 0, 260, 80).setZoom(1.3);
+         camera2_2.ignore(this.Nio_lvl1_2);
          setTimeout( () => {
          camera2_2.pan(this.container_lvl1_2.x, this.container_lvl1_2.y, 3000, 'Sine.easeInOut');
          }, 2000); 
@@ -262,6 +422,51 @@ class SceneC extends Phaser.Scene{
             });
         }
 
+        ///////////////////CAIDA//////////////////////////////////////////////////    
+        if(this.Nio_lvl1_2.body.velocity.y >= 500)
+        {
+           // console.log(this.Nio.body.velocity.y)
+                this.fuerte=1;
+            //    console.log(this.fuerte);
+            this.caida.play();
+            
+        }
+
+        if(this.Nio_lvl1_2.body.touching.down && this.fuerte == 1)
+        {
+            console.log("Auch!")
+            this.Nio_lvl1_2.setTint(0xff0000)
+            setTimeout(() => {
+                this.Nio_lvl1_2.clearTint();
+                }, 1300);
+            console.log("Caida");
+
+            this.dato_lvl1_2-=1;
+
+            //Actualizacion del cartel de vidas
+            const container_lvl1_2 = this.add.container(100, 30).setScale(0.08); //su origen es 0.5
+            this.contenedor_lvl1_2 = this.add.image(0, 0, 'contenedor'); //su origen es 0.5
+            this.texto_lvl1_2 = this.add.text(250,-100,`x ${this.dato_lvl1_2}`,{
+                fontSize: 250}); // su origen es 0,0
+            this.head_lvl1_2 = this.add.image(-500, 50, 'head').setScale(15); //su origen es 0.5
+            this.cora_lvl1_2 = this.add.image(0, 0, 'coraz').setScale(5);
+            container_lvl1_2.add([
+                this.contenedor_lvl1_2,
+                this.head_lvl1_2,
+                this.cora_lvl1_2,
+                this.texto_lvl1_2]);
+
+            this.fuerte = 0;
+        }
+
+        //GameOver
+        if(this.dato_lvl1_2==0){
+            console.log("Game Over");
+            this.scene.start('SceneGO');
+            //this.scene.restart('SceneC')
+            this.scene.stop('SceneC');
+                
+                          }
     }
 }
 export default SceneC;

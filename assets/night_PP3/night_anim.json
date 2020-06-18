@@ -1,0 +1,24 @@
+{
+    "anims": [
+        {
+            "key": "fly",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "night",
+                    "frame": "night_0"
+                },
+                {
+                    "key": "night",
+                    "frame": "night_1"
+                },
+                {
+                    "key": "night",
+                    "frame": "night_0"
+                }
+            ]
+        }
+    ]
+}
