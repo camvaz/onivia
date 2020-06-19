@@ -46,11 +46,13 @@ class Bootloader extends Phaser.Scene{
         this.load.image(['contenedor','head']);
         this.load.image("coraz","coraz.png");
         this.load.image('disparo','disparo.png');
+        this.load.audio("win","win.mp3");
 
         //GameOverScene
         this.load.image("gameover","Game over.png");
         this.load.image("back","back.png");
         this.load.image("skull","skull.png");
+        this.load.audio("gameOver","gameOver.mp3");
 
         //Audio lvls
         this.load.audio("disparo","disparo.mp3");

@@ -14,8 +14,11 @@ class SceneB extends Phaser.Scene{
         this.disparo = this.sound.add("disparo",{volume: 4});
         this.picos1= this.sound.add("picos",{volume: 4});
          ////////////////////////////////////FONDO/////////////////////////////////////////////////////////
-        this.data.set('vidas',3);
+        this.data.set('vidas',4);
         this.data.set('balas', 0);
+        var sen1 = 0;
+        var i = 0;
+        var vivo = 0;
         console.log(this.data.list);
 
          this.add.image(0, 0, 'cielo3').setScale(0.55, 0.7);
@@ -72,6 +75,8 @@ class SceneB extends Phaser.Scene{
          
          //Movimiento a la derecha
          this.cursor_lvl1.right.on('down', () => {
+             sen1 = 0;
+             i = 0;
              this.Nio_lvl1.body.setVelocityX(800);
              this.Nio_lvl1.flipX=0;
              this.Nio_lvl1.body.setOffset(17, 0);
@@ -101,7 +106,9 @@ class SceneB extends Phaser.Scene{
           }
          this.physics.add.collider(this.Nio_lvl1,this.grupo_lvl1,saltar,null,this);
          //Movimiento izquierda
-         this.cursor_lvl1.left.on('down', () => {   
+         this.cursor_lvl1.left.on('down', () => { 
+            sen1 = 1;
+            i = 1;  
              this.Nio_lvl1.body.setVelocityX(-800);
              this.Nio_lvl1.flipX=1;
              this.Nio_lvl1.body.setOffset(3, 0);
@@ -147,34 +154,66 @@ class SceneB extends Phaser.Scene{
          this.physics.add.collider(this.Nio_lvl1,this.grupo2_lvl1,choquePicos,null,this);
 
          //Disparo Nio
+         
          this.cursor_lvl1.space.on('down', () => {
-            if (this.Nio_lvl1.flipX == 0)
+            if(vivo == 0)
+        {
+            if(i == 0)
             {
-                this.bala_lvl1 = this.physics.add.sprite(this.Nio_lvl1.x,this.Nio_lvl1.y,'disparo').setScale(0.5);
-                this.bala_lvl1.body.setVelocityX(800);
-                this.bala_lvl1.body.setAllowGravity(false); 
-                this.data.list.balas += 1; 
-                console.log(this.data.list.balas);
-                console.log("disparando")
-                //limiteBalas++;
-                //console.log(limiteBalas);
-                //this.physics.add.collider(this.bala_lvl1, this., BalaMorfeo, null, this);
-                this.disparo.play();
+                if (sen1 == 0)
+                {
+                    this.bala_lvl1 = this.physics.add.sprite(this.Nio_lvl1.x,this.Nio_lvl1.y,'disparo').setScale(0.5);
+                    this.bala_lvl1.body.setVelocityX(800);
+                    this.bala_lvl1.body.setAllowGravity(false); 
+                    this.data.list.balas += 1; 
+                    console.log(this.data.list.balas);
+                    console.log("disparando")
+                    //limiteBalas++;
+                    //console.log(limiteBalas);
+                    //this.physics.add.collider(this.bala_lvl1, this., BalaMorfeo, null, this);
+                    this.disparo.play();
+                    vivo = 1;
+                    BalaMundo(this.bala_lvl1);
+                }
             }
-            else if(this.Nio_lvl1.FlipX != 0) {
-                this.cursor_lvl1.space.on('down', () => {
+            else if (i == 1)
+                {
+                if (sen1 == 1){
                     this.bala_lvl1 = this.physics.add.sprite(this.Nio_lvl1.x,this.Nio_lvl1.y,'disparo').setScale(0.5);
                     this.bala_lvl1.body.setVelocityX(-800);
                     this.bala_lvl1.body.setAllowGravity(false); 
                     this.data.list.balas += 1; 
                     console.log(this.data.list.balas);
-                    console.log("disparando al reves");
+                    console.log("disparando")
+                    //limiteBalas++;
+                    //console.log(limiteBalas);
+                    //this.physics.add.collider(this.bala_lvl1, this., BalaMorfeo, null, this);
                     this.disparo.play();
-            });
-             
-            };
-        });
+                    vivo = 1;
+                    BalaMundo(this.bala_lvl1);
+                            }                         
+                }
+        }
+        else if(vivo == 1)
+        {
+            console.log("hay una bala, no se puede disparar")
+        }
 
+        });
+//////////////////////////////////////////////////////////////////////////////
+    function BalaMundo (bala)
+    {
+    
+    setTimeout(() => {
+        console.log("La bala murió :(");
+        //this.registry.events.emit('daño', 1); 
+        bala.destroy();  
+        vivo = 0;
+        }, 800);
+     
+       
+    }
+//////////////////////////////////////////////////////////////////////////
          //Siguiente nivel 
          function cambioScene(Nio_lvl1, esquina){
             console.log("Siguiente parte");
@@ -229,7 +268,7 @@ class SceneB extends Phaser.Scene{
         }
 
         //GameOver
-        if(this.data.get('vidas')==0){
+        if(this.data.get('vidas')<=0){
         console.log("Game Over");
         this.salto=0;
         this.scene.pause('SceneB');
