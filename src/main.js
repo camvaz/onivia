@@ -5,6 +5,7 @@ import SceneC from "./scenes/SceneC.js"
 import SceneD from "./scenes/SceneD.js"
 import SceneE from "./scenes/SceneE.js"
 import SceneF from "./scenes/SceneF.js"
+import SceneG from "./scenes/SceneG.js"
 import SceneGO from "./scenes/SceneGO.js"
 // import SceneC from "./scenes/SceneC.js"
 
@@ -20,7 +21,7 @@ const config = {
                                     // se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#34495e", 	//Color de fondo del canvas ()
-    scene: [Bootloader,SceneA, SceneB, SceneC, SceneD, SceneE,SceneF,SceneGO],    //Aquí irá la lista de scenas del juego
+    scene: [Bootloader,SceneA, SceneB, SceneC, SceneD, SceneE,SceneF,SceneG,SceneGO],    //Aquí irá la lista de scenas del juego
     banner:{
         hidePhaser: true,
         text: "#fff00f",
@@ -36,7 +37,7 @@ const config = {
         gravity: {
         y: 800
         },
-        debug: true
+        debug: false
         }
         },
 };
