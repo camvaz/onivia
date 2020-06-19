@@ -44,6 +44,8 @@ class Bootloader extends Phaser.Scene{
         this.load.image("fondonoche","Fondo noche.png");
         this.load.atlas('nio','nio_PP3/nio.png','nio_PP3/nio_atlas.json');
         this.load.atlas('morfeo','morfeo_PP3/morfeo.png','morfeo_PP3/morfeo_atlas.json');
+        this.load.atlas('Emorfeo','evilmorfeo_PP3/evilmorfeo.png','evilmorfeo_PP3/evilmorfeo_atlas.json');
+        this.load.atlas('trans','trans_PP3/trans.png','trans_PP3/trans_atlas.json');
         this.load.image('Morfeo','Morfeo.png');
         this.load.atlas('cora','cora_PP3/cora.png','cora_PP3/cora_atlas.json');
         this.load.animation('nioAnim', 'nio_PP3/nio_anim.json');

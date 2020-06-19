@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "trans",
+            "type": "frames",
+            "repeat": 1,
+            "frameRate": 3,
+            "frames": [
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_0"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_1"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_2"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_3"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_3"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_4"
+                },
+                {
+                    "key": "trans",
+                    "frame": "trans_(1)_5"
+                }
+            ]
+        }
+    ]
+}

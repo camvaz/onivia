@@ -8,7 +8,8 @@ class SceneE extends Phaser.Scene{
     this.dato_lvl2;
     this.dato2_lvl2;
     this.fuerte=0;
- 
+
+    this.transformacion = 0;
     
     
 
@@ -37,6 +38,7 @@ class SceneE extends Phaser.Scene{
         var sen1 = 0;
         var i = 0;
         var vivo = 0;
+        
         
         
         //this.data.set('monstruos', 1)    
@@ -137,27 +139,83 @@ class SceneE extends Phaser.Scene{
 
          /////MORFEO
         // this.Morfeo = this.add.sprite(350,100,'Morfeo').setScale(1.3);
-        this.Morfeo = this.add.sprite(350,100,'morfeo').setScale(1.3);
-         this.physics.add.existing(this.Morfeo);
-         this.physics.add.existing(this.Morfeo, false);
-         console.log(this.Morfeo.body);
-         this.Morfeo.body.setCollideWorldBounds(true);
-         this.Morfeo.body.setAllowGravity(false);
-         this.Morfeo.body.immovable=true;
-         this.Morfeo.body.moves=false;
-         this.Morfeo.body.setOffset(17, 0);
-
-         this.anims.create({
-            key: 'mov1',
-            frames: this.anims.generateFrameNames('morfeo', {
-            prefix: 'morfeo_',
-            frames: [0,0,1,1]
-            }),
-            repeat: -1,
-            frameRate: 12
-            });
         
-        this.Morfeo.anims.play('mov1');
+            this.Morfeo = this.add.sprite(350,100,'morfeo').setScale(1.3);
+            this.physics.add.existing(this.Morfeo);
+            this.physics.add.existing(this.Morfeo, false);
+            console.log(this.Morfeo.body);
+            this.Morfeo.body.setCollideWorldBounds(true);
+            this.Morfeo.body.setAllowGravity(false);
+            this.Morfeo.body.immovable=true;
+            this.Morfeo.body.moves=false;
+            this.Morfeo.body.setOffset(17, 0);
+   
+            this.anims.create({
+               key: 'mov1',
+               frames: this.anims.generateFrameNames('morfeo', {
+               prefix: 'morfeo_',
+               frames: [0,0,1,1]
+               }),
+               repeat: -1,
+               frameRate: 12
+               });
+           
+           this.Morfeo.anims.play('mov1');
+        
+        /////EVIL MORFEO
+            this.EMorfeo = this.add.sprite(this.Morfeo.x,this.Morfeo.y,'Emorfeo').setScale(0.5).setDepth(1).setVisible(0);
+
+            this.registry.events.on('transformar', (transformar) => {
+            console.log('transformación en proceso')
+            this.trans = this.add.sprite(this.Morfeo.x,this.Morfeo.y,'trans').setScale(1).setDepth(2);
+            this.anims.create({
+                key: 'trans1',
+                frames: this.anims.generateFrameNames('trans', {
+                prefix: 'trans_(1)_',
+                frames: [0,1,2,3,3,4,5,5]
+                }),
+                repeat: 0,
+                frameRate: 10
+                });
+
+            this.trans.anims.play('trans1');
+
+            var x = this.Morfeo.x;
+            var y = this.Morfeo.y;
+            this.Morfeo.anims.stop('mov1');
+            this.Morfeo.destroy()
+
+            this.EMorfeo.x = x;
+            this.EMorfeo.y = y;
+            this.EMorfeo.setVisible(1);
+            this.physics.add.existing(this.EMorfeo);
+            this.physics.add.existing(this.EMorfeo, false);
+            console.log(this.EMorfeo.body);
+            this.EMorfeo.body.setCollideWorldBounds(true);
+            this.EMorfeo.body.setAllowGravity(false);
+            this.EMorfeo.body.immovable=true;
+            this.EMorfeo.body.moves=false;
+            this.EMorfeo.body.setSize(200,200)
+            this.EMorfeo.body.setOffset(0, 0);
+            //this.Morfeo = this.EMorfeo;
+
+            this.anims.create({
+                key: 'evil1',
+                frames: this.anims.generateFrameNames('Emorfeo', {
+                prefix: 'evil_morfeo_',
+                frames: [0,1,0]
+                }),
+                repeat: -1,
+                frameRate: 5
+                });
+
+            this.EMorfeo.anims.play('evil1');
+                               });
+
+            
+
+        
+        
         
 
 ///////////////////////////////////OBJETOS//////////////////////////////////
@@ -281,6 +339,7 @@ class SceneE extends Phaser.Scene{
                     this.disparo4.play();
                     vivo = 1;
                     this.physics.add.collider(this.bala, this.Morfeo, BalaMorfeo, null, this);
+                    this.physics.add.collider(this.bala, this.EMorfeo, BalaEMorfeo, null, this);
                     BalaMundo(this.bala);
                 }
             }
@@ -296,6 +355,7 @@ class SceneE extends Phaser.Scene{
                         this.disparo4.play();
                         vivo = 1;
                         this.physics.add.collider(this.bala, this.Morfeo, BalaMorfeo, null, this);
+                        this.physics.add.collider(this.bala, this.EMorfeo, BalaEMorfeo, null, this);
                         BalaMundo(this.bala);
                             }                         
                 }
@@ -325,9 +385,36 @@ class SceneE extends Phaser.Scene{
                 }, 3000);
 
         }
-    Morfeo.setTint(0xff0000);
+        Morfeo.setTint(0xff0000);
+        setTimeout(() => {
+            this.Morfeo.clearTint();
+            }, 100);
+            console.log("Morfeo recibió daño");
+            //this.registry.events.emit('daño', 1); 
+            this.bala.destroy();  
+            vivo = 0;
+    }
+
+    function BalaEMorfeo (bala, EMorfeo)
+    {
+        this.data.list.morfeo-=1;
+        console.log(this.data.get('morfeo'));
+        if(this.data.list.morfeo==0){
+            this.EMorfeo.destroy();
+            this.win.play();
+            setTimeout(() => {
+                this.scene.stop('SceneE');
+                //this.scene.stop('SceneF');
+                this.registry.events.emit('Win', 1); 
+                setTimeout(() => {
+                    this.scene.start('SceneG');
+                    }, 6000);
+                }, 3000);
+
+        }
+    EMorfeo.setTint(0xff0000);
     setTimeout(() => {
-        this.Morfeo.clearTint();
+        this.EMorfeo.clearTint();
         }, 100);
      console.log("Morfeo recibió daño");
      //this.registry.events.emit('daño', 1); 
@@ -354,12 +441,40 @@ class SceneE extends Phaser.Scene{
     this.physics.add.collider(this.Nio,this.grupo);
     
     this.physics.add.collider(this.Nio, this.Morfeo, ChoqueMorfeo, null, this);
+    this.physics.add.collider(this.Nio, this.EMorfeo, ChoqueMorfeo, null, this);
     this.physics.add.overlap(this.Nio, this.coraa, tomar , null, this);
     
     
    
 
     function ChoqueMorfeo (Nio, Morfeo)
+        {
+            this.dato_lvl2-=1;
+            this.data.set('vidas', 5);
+            const container = this.add.container(100, 30).setScale(0.08); 
+            this.contenedor = this.add.image(0, 0, 'contenedor'); 
+            this.texto = this.add.text(250,-100,'x '+ this.dato_lvl2,{
+            fontSize: 250}); // su origen es 0,0
+            this.head = this.add.image(-500, 50, 'head').setScale(15); 
+            this.cora = this.add.image(0, 0, 'coraz').setScale(5);
+            container.add([
+                this.contenedor,
+                this.head,
+                this.cora,
+                this.texto]);
+                
+            Nio.setTint(0xff0000);           
+            setTimeout(() => {
+                this.Nio.clearTint();
+                }, 1300);
+            console.log("Colisionaron");
+            this.registry.events.emit('daño', 1);   
+            this.choque3.play();
+            this.Nio.setPosition(300,180);
+           
+        }
+
+        function ChoqueEMorfeo (Nio, EMorfeo)
         {
             this.dato_lvl2-=1;
             this.data.set('vidas', 5);
@@ -574,7 +689,7 @@ class SceneE extends Phaser.Scene{
                 });
 
             this.timeline4=this.tweens.timeline({
-                targets: [this.Morfeo],
+                targets: [this.EMorfeo],
                 paused: true,
                     // loop: 1,
                 tweens: [
@@ -586,7 +701,7 @@ class SceneE extends Phaser.Scene{
                 });
                 
             this.timeline5=this.tweens.timeline({
-                targets: [this.Morfeo],
+                targets: [this.EMorfeo],
                 paused: true,
                     // loop: 1,
                 tweens: [
@@ -710,7 +825,15 @@ class SceneE extends Phaser.Scene{
             this.timeline2.play();
         }
         if(this.data.list.morfeo==24){
-            this.timeline3.play();
+            // this.transformacion = 1;
+            // if(this.transformacion == 1)
+            // {
+                this.registry.events.emit('transformar');
+                this.timeline3.play(); 
+                this.data.list.morfeo=23;
+            //     this.transformacion = 0;
+            // }
+             
         }
         if(this.data.list.morfeo==16){
             this.timeline4.play();

@@ -46,7 +46,13 @@ class SceneF extends Phaser.Scene{
             this.m2.stop();
             this.m3.stop();
             this.ganar = this.add.image(0, 0, 'winscene').setScale(1).setOrigin(0);
-                           });
+            });
+        
+        this.registry.events.on ('parar', (parar) => {
+        this.m1.stop();
+        this.m2.stop();
+        this.m3.stop();
+        });
     }
 
 

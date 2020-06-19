@@ -1,0 +1,24 @@
+{
+    "anims": [
+        {
+            "key": "evil",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "evilmorfeo",
+                    "frame": "evil_morfeo_0"
+                },
+                {
+                    "key": "evilmorfeo",
+                    "frame": "evil_morfeo_1"
+                },
+                {
+                    "key": "evilmorfeo",
+                    "frame": "evil_morfeo_0"
+                }
+            ]
+        }
+    ]
+}

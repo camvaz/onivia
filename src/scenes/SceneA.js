@@ -65,13 +65,11 @@ class SceneA extends Phaser.Scene{
                 this.nivel2.setVisible(0);
                 this.regreso.setVisible(0);
                 //this.musicaLvls.stop();
-                this.scene.start('SceneB');
+                this.scene.start('SceneG');
                 //this.registry.events.emit('Win');
                // this.scene.launch('SceneF');
-                setTimeout(() => {
-                    this.scene.sleep('SceneD');
-                    }, 12000);
                 this.scene.stop('SceneA');
+                this.registry.events.emit('parar');
             }
             if(GameObject.name == "regreso"){
                 //this.rayo.play();
@@ -81,6 +79,7 @@ class SceneA extends Phaser.Scene{
                 this.regreso.setVisible(0);
                 this.scene.start('Bootloader');
                 this.scene.stop('SceneA');
+                this.registry.events.emit('parar');
             }
         });
     }
