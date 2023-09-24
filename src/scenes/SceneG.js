@@ -9,19 +9,59 @@ class SceneG extends Phaser.Scene{
     }
 
     create() {
-        this.add.image(350, 280, 'creditos').setScale(0.53,0.9);
-        this.disparoC = this.sound.add("disparo",{volume: 2});
-        this.choqueC = this.sound.add("picos",{volume: 2});
-        this.saltoC = this.sound.add("salto",{volume: 2});
-        this.creditos = this.sound.add("creditosM",{volume: 4});
+        this.add.image(450, 285, 'creditos').setScale(1);
+        this.add.image(160, 280, 'laSuma').setScale(0.05);
+        this.volverM2 = this.add.image(780,520,'volverMenu').setScale(0.1).setInteractive();
+        this.volverM2.name="volverM";
+        this.disparoC = this.sound.add("disparo",{volume: 0.1});
+        this.choqueC = this.sound.add("picos",{volume: 0.1});
+        this.saltoC = this.sound.add("salto",{volume: 0.1});
+        this.creditos = this.sound.add("creditosM",{volume: 0.1});
         this.creditos.play();
         this.data.set('bal', 0);
         var sen1C = 0;
         var iC = 0;
         var vivoC = 0;
 
+        const eventos7 = Phaser.Input.Events;
+        this.sonBotones3 = this.sound.add("boton",{volume: 0.1});
+        this.cambio3 = this.sound.add("cambio",{volume: 0.1});
+        this.boton3 = this.sound.add("sonBotones",{volume: 0.1});
+
+        this.volverM2.on(eventos7.POINTER_MOVE, (evento) => {
+            this.volverM2.setScale(0.09);
+            this.sonBotones3.play();
+            });
+
+        this.volverM2.on(eventos7.POINTER_OUT, (evento) => {
+                this.volverM2.setScale(0.1);
+            });
+
+        this.input.on(eventos7.GAMEOBJECT_DOWN, (pointer, GameObject) =>{
+            if(GameObject.name != "")
+            if(GameObject.name == "reiniciarJ"){
+                this.cambio2.play();
+                this.volverM.setVisible(0);
+                this.reiniciarJ.setVisible(0);
+                this.fondo.setVisible(0);
+                this.boton2.play();
+                this.scene.start('SceneB');
+                this.scene.stop('SceneGO');
+                this.registry.events.emit('parar');
+            }
+            if(GameObject.name == "volverM"){
+                this.cambio3.play();
+                this.volverM2.setVisible(0);
+                this.boton3.play();
+                this.creditos.stop();
+                this.scene.start('Bootloader');
+                this.scene.stop('SceneG');
+                this.registry.events.emit('parar');
+            }
+        });
+
         ////////////////////////////////////PERSONAJE////////////////////////////////////////////////////
-        this.Night = this.add.sprite(500,450,'Morfeo').setScale(1.8);
+        this.Night = this.add.sprite(500,450,'Morfeo').setScale(2);
         this.physics.add.existing(this.Night, false);
         this.Night.body.setCollideWorldBounds(true);
         this.Night.body.setAllowGravity(false);
@@ -40,7 +80,7 @@ class SceneG extends Phaser.Scene{
             });
         this.Night.anims.play('mov1');
 
-         this.NioC = this.add.sprite(20,100,'nio').setScale(1.8).setScrollFactor(1);
+         this.NioC = this.add.sprite(20,100,'nio').setScale(2.3).setScrollFactor(1);
          this.physics.add.existing(this.NioC);
          this.physics.add.existing(this.NioC, false);
          console.log(this.NioC);

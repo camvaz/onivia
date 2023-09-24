@@ -11,9 +11,9 @@ class SceneF extends Phaser.Scene{
     }
 
     create() {
-        this.m1 = this.sound.add("m1",{volume: 4});
-        this.m2 = this.sound.add("m2",{volume: 4});
-        this.m3 = this.sound.add("m3",{volume: 4});
+        this.m1 = this.sound.add("m1",{volume: 0.1});
+        this.m2 = this.sound.add("m2",{volume: 0.1});
+        this.m3 = this.sound.add("m3",{volume: 0.1});
 
         this.m1.play();
         
@@ -22,7 +22,7 @@ class SceneF extends Phaser.Scene{
             this.m1.play();
             this.m2.stop();
             this.m3.stop();
-                           });
+        });
 
              this.registry.events.on('m2', (m2) => {
             console.log('Cambio música lvl 1');
@@ -45,13 +45,13 @@ class SceneF extends Phaser.Scene{
                 }, 6000);
             this.m2.stop();
             this.m3.stop();
-            this.ganar = this.add.image(0, 0, 'winscene').setScale(1).setOrigin(0);
+            this.ganar = this.add.image(450, 285, 'winscene').setScale(1);
             });
         
         this.registry.events.on ('parar', (parar) => {
-        this.m1.stop();
-        this.m2.stop();
-        this.m3.stop();
+            this.m1.stop();
+            this.m2.stop();
+            this.m3.stop();
         });
     }
 
